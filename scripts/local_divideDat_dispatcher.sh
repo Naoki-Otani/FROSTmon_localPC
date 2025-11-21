@@ -35,7 +35,7 @@ JOB_PREFIX_PROBE="divide_probe_"
 JOB_PREFIX_EXTRACT="divide_extract_"
 
 # Local logging
-LOG_DIR="./logs"
+LOG_DIR="../logs"
 MIRROR_TO_CONSOLE="yes"    # "yes" -> tee to console; "no" -> only file
 
 ############################
