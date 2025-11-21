@@ -2,22 +2,24 @@
 set -euo pipefail
 
 # ===== Config =====
+source /home/daq/FROSTmon/config/config.env
+
 SRC_HOST="kekcc"
-SRC_DIR_LATESTDAT="/group/nu/ninja/work/otani/FROST_beamdata/test/latestdat_info/"
-SRC_DIR_DATAQUALITY="/group/nu/ninja/work/otani/FROST_beamdata/test/dataquality/"
-SRC_DIR_DATAQUALITY_WITHBSD="/group/nu/ninja/work/otani/FROST_beamdata/test/dataquality_withBSD/"
+SRC_DIR_LATESTDAT="$SRC_DIR_LATESTDAT"
+SRC_DIR_DATAQUALITY="$SRC_DIR_DATAQUALITY"
+SRC_DIR_DATAQUALITY_WITHBSD="$SRC_DIR_DATAQUALITY_WITHBSD"
 
 DST_HOST="kuhep"
 DST_DIR_LATESTDAT="/hep_web/member/otani/frostmonitor/figs/latestdat_info/"
 DST_DIR_DATAQUALITY="/hep_web/member/otani/frostmonitor/figs/dataquality/"
 DST_DIR_DATAQUALITY_WITHBSD="/hep_web/member/otani/frostmonitor/figs/dataquality_withBSD/"
 
-LOCAL_DIR_LATESTDAT="/home/daq/FROSTmon/scripts/figs/latestdat_info"
-LOCAL_DIR_DATAQUALITY="/home/daq/FROSTmon/scripts/figs/dataquality"
-LOCAL_DIR_DATAQUALITY_WITHBSD="/home/daq/FROSTmon/scripts/figs/dataquality_withBSD"
+LOCAL_DIR_LATESTDAT="/home/daq/FROSTmon/figs/latestdat_info"
+LOCAL_DIR_DATAQUALITY="/home/daq/FROSTmon/figs/dataquality"
+LOCAL_DIR_DATAQUALITY_WITHBSD="/home/daq/FROSTmon/figs/dataquality_withBSD"
 
 # log file
-LOG_DIR="/home/daq/FROSTmon/scripts/logs"
+LOG_DIR="/home/daq/FROSTmon/logs"
 LOG_FILE="$LOG_DIR/figs_sync.log"
 
 # ===== mkdir =====

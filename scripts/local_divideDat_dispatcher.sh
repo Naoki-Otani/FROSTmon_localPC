@@ -11,11 +11,12 @@ export LC_ALL=C LANG=C
 ############################
 # Config (EDIT THESE)
 ############################
+source /home/daq/FROSTmon/config/config.env
 REMOTE_HOST="kekcc"   # SSH alias for login.cc.kek.jp in your ~/.ssh/config
 
 # Remote paths on KEKCC
-SRC_DIR="/group/nu/ninja/work/otani/FROST_beamdata/test/datfile"
-OUT_DIR="/group/nu/ninja/work/otani/FROST_beamdata/test/divided_datfile"
+SRC_DIR="$DAT_DIR"
+OUT_DIR="$DIV_DIR"
 PROBE_DIR="$OUT_DIR/.probe"
 LSF_OUT_DIR="$OUT_DIR/lsf_out"
 

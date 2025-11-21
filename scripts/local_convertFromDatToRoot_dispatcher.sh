@@ -12,10 +12,12 @@ export LC_ALL=C LANG=C
 ############################
 # Config (EDIT THESE)
 ############################
+source /home/daq/FROSTmon/config/config.env
+
 REMOTE_HOST="kekcc"   # ssh alias to login.cc.kek.jp in your ~/.ssh/config
 
-DIV_DIR="/group/nu/ninja/work/otani/FROST_beamdata/test/divided_datfile"
-ROOT_DIR="/group/nu/ninja/work/otani/FROST_beamdata/test/rootfile"
+DIV_DIR="$DIV_DIR"
+ROOT_DIR="$ROOT_DIR"
 WORKER_SCRIPT="/home/nu/notani/FROST_monitor/OfflineAnalyzer/src/convert_one_rayraw.sh"  # path on KEKCC
 LSF_OUT_DIR="$ROOT_DIR/lsf_out"
 
