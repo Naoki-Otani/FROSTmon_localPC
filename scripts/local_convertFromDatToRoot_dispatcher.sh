@@ -152,8 +152,12 @@ main() {
   # Warm up a persistent SSH master connection up front (best-effort).
   ensure_master >/dev/null 2>&1 || true
 
-  # Do NOT create remote dirs here (avoid mkdir-related failures).
-  # Ensure they exist once by hand if needed.
+  # Ensure remote LSF output directory exists on KEKCC.
+  echo "[$(ts)] Ensuring LSF_OUT_DIR exists on KEKCC: $LSF_OUT_DIR"
+  if ! rcmd "mkdir -p '$LSF_OUT_DIR'"; then
+    echo "[$(ts)] ERROR: failed to create LSF_OUT_DIR on KEKCC: $LSF_OUT_DIR"
+    exit 1
+  fi
 
   while true; do
     # Concurrency throttle

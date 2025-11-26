@@ -18,9 +18,9 @@ The script runs on the **local node** and is intended to be executed periodicall
 
 The script pulls updated files from:
 
-- `/group/nu/ninja/work/otani/FFROST_beamdata/test/latestdat_info/`
-- `/group/nu/ninja/work/otani/FROST_beamdata/test/dataquality/`
-- `/group/nu/ninja/work/otani/FROST_beamdata/test/dataquality_withBSD/`
+- `/group/nu/ninja/work/otani/FFROST_beamdata/e71c/latestdat_info/`
+- `/group/nu/ninja/work/otani/FROST_beamdata/e71c/dataquality/`
+- `/group/nu/ninja/work/otani/FROST_beamdata/e71c/dataquality_withBSD/`
 
 It saves them under:
 
