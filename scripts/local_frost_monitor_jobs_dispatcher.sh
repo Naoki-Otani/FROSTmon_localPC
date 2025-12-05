@@ -228,11 +228,11 @@ main() {
     fi
 
     # 4 ) sync_bsd
-    if job_exists "$BSD_JOB_NAME"; then
-      echo "[$(ts)] BSD  : job '$BSD_JOB_NAME' already running/queued"
-    else
-      submit_program_job "$BSD_DIR" "$BSD_CMD" "$BSD_JOB_NAME" "$BSD_LSF_OUT"
-    fi
+#    if job_exists "$BSD_JOB_NAME"; then
+#      echo "[$(ts)] BSD  : job '$BSD_JOB_NAME' already running/queued"
+#    else
+#      submit_program_job "$BSD_DIR" "$BSD_CMD" "$BSD_JOB_NAME" "$BSD_LSF_OUT"
+#    fi
 
     # 5 ) dataqualityplot_withBSD
     if job_exists "$DQWITHBSD_JOB_NAME"; then

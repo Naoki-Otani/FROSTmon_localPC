@@ -1,9 +1,9 @@
 # FROSTmon Execution Guide
 
-This system requires two things to run continuously:
+This system requires the following to run continuously:
 
 1.  **Three dispatcher scripts that must always stay running**
-2.  **One script (`figs_sync.sh`) that must run every 3 minutes**
+2.  **Two sync scripts (`figs_sync.sh` and `qsd_sync.sh`) that must run periodically via cron**
 
 ## 1. Start the Three Dispatchers
 
@@ -20,15 +20,28 @@ keep running in the background.
 
 Add this line to your crontab:
 
-    */3 * * * * /home/daq/FROSTmon/scripts/figs_sync.sh
+```cron
+*/3 * * * * /home/daq/FROSTmon/scripts/figs_sync.sh
+```
 
 This makes `figs_sync.sh` run automatically every 3 minutes.
+
+## 3. Run `qsd_sync.sh` Every 10 Minutes
+
+Add this line to your crontab:
+
+```cron
+*/10 * * * * /home/daq/FROSTmon/scripts/qsd_sync.sh
+```
+
+This makes `qsd_sync.sh` run automatically every 10 minutes.
 
 ## Summary
 
 -   Use **`run_all_dispatchers.sh`** to keep the 3 dispatcher processes
     running forever.
 -   Use **crontab** to run **`figs_sinc.sh` every 3 minutes**.
+-   Use **crontab** to run **`qsd_sync.sh` every 10 minutes**.
 
 ## IMPORTANT: Configure `config/config.env`
 
@@ -39,12 +52,16 @@ edit:
 config/config.env
 ```
 
-This file contains **file paths used on KEKCC**.  
-You must update all KEKCC-specific paths in `config.env` so that they point to
-the correct directories on the local machine before starting the dispatcher
-scripts.  
-If the KEKCC paths are left unchanged, the monitoring and dispatcher jobs will
-fail to locate input/output files.
+This file contains **file paths and environment settings used by FROSTmon**, including:
+
+- Paths on **KEKCC** used by `figs_sync.sh`
+- Paths on **scbn** and **KEKCC (bsd)** used by `qsd_sync.sh`
+- Local directories on the DAQ node
+
+You must update all machine-specific paths in `config.env` so that they point to
+the correct directories before starting the dispatcher scripts or enabling the
+cron jobs. If these paths are left unchanged, the monitoring, dispatcher, and
+sync jobs will fail to locate input/output files.
 
 ## Checking Running Dispatcher Processes
 
