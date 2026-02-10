@@ -1,1 +1,1 @@
-document.write("94.8030 %");
+document.write("100.0000 %");

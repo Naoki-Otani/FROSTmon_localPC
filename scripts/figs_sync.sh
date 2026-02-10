@@ -53,6 +53,14 @@ rsync -av \
   "${SRC_HOST}:${SRC_DIR_DATAQUALITY_WITHBSD}" \
   "$LOCAL_DIR_DATAQUALITY_WITHBSD" >> "$LOG_FILE" 2>&1
 
+# ===== local -> kuhep =====
+echo "[$(timestamp)] rsync from $LOCAL_DIR_LATESTDAT to $DST_HOST:$DST_DIR_LATESTDAT" >> "$LOG_FILE"
+rsync -av \
+  --partial --inplace \
+  --chmod=F644,D755 \
+  "$LOCAL_DIR_LATESTDAT/" \
+  "${DST_HOST}:${DST_DIR_LATESTDAT}" >> "$LOG_FILE" 2>&1
+
 # ===== Convert PDFs to PNGs =====
 convert_pdf_dir() {
   local DIR="$1"
@@ -73,12 +81,12 @@ convert_pdf_dir "$LOCAL_DIR_DATAQUALITY"
 convert_pdf_dir "$LOCAL_DIR_DATAQUALITY_WITHBSD"
 
 # ===== local -> kuhep =====
-echo "[$(timestamp)] rsync from $LOCAL_DIR_LATESTDAT to $DST_HOST:$DST_DIR_LATESTDAT" >> "$LOG_FILE"
-rsync -av \
-  --partial --inplace \
-  --chmod=F644,D755 \
-  "$LOCAL_DIR_LATESTDAT/" \
-  "${DST_HOST}:${DST_DIR_LATESTDAT}" >> "$LOG_FILE" 2>&1
+#echo "[$(timestamp)] rsync from $LOCAL_DIR_LATESTDAT to $DST_HOST:$DST_DIR_LATESTDAT" >> "$LOG_FILE"
+#rsync -av \
+#  --partial --inplace \
+#  --chmod=F644,D755 \
+#  "$LOCAL_DIR_LATESTDAT/" \
+#  "${DST_HOST}:${DST_DIR_LATESTDAT}" >> "$LOG_FILE" 2>&1
 
 echo "[$(timestamp)] rsync from $LOCAL_DIR_DATAQUALITY to $DST_HOST:$DST_DIR_DATAQUALITY" >> "$LOG_FILE"
 rsync -av \

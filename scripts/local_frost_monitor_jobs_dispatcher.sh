@@ -23,6 +23,7 @@ export LC_ALL=C LANG=C
 ############################
 REMOTE_HOST="kekcc"   # ssh alias to login.cc.kek.jp in your ~/.ssh/config
 QUEUE="l"             # LSF queue name
+QUEUE_a="a"
 INTERVAL=60           # seconds between scans
 RCMD_RETRY=3          # SSH retries per logical command
 
@@ -177,6 +178,20 @@ submit_program_job() {
         bsub -q '$QUEUE' -J '$jname' -o '$lsfout_dir/${jname}.%J.out' $EXTRA_BSUB_OPTS $cmd"
 }
 
+submit_program_job_a() {
+  local workdir="$1"
+  local cmd="$2"
+  local jname="$3"
+  local lsfout_dir="$4"
+
+  echo "[$(ts)] SUBMIT: $jname (workdir=$workdir)"
+
+  # NOTE: %J in output filename will be replaced with LSF job ID
+  rcmd "mkdir -p '$lsfout_dir' && \
+        cd '$workdir' && \
+        bsub -q '$QUEUE_a' -J '$jname' -o '$lsfout_dir/${jname}.%J.out' $EXTRA_BSUB_OPTS $cmd"
+}
+
 ############################
 # Main loop
 ############################
@@ -224,7 +239,7 @@ main() {
     if job_exists "$DQ_JOB_NAME"; then
       echo "[$(ts)] DQ   : job '$DQ_JOB_NAME' already running/queued"
     else
-      submit_program_job "$DQ_DIR" "$DQ_CMD" "$DQ_JOB_NAME" "$DQ_LSF_OUT"
+      submit_program_job_a "$DQ_DIR" "$DQ_CMD" "$DQ_JOB_NAME" "$DQ_LSF_OUT"
     fi
 
     # 4 ) sync_bsd
@@ -238,14 +253,14 @@ main() {
     if job_exists "$DQWITHBSD_JOB_NAME"; then
       echo "[$(ts)] DQBSD: job '$DQWITHBSD_JOB_NAME' already running/queued"
     else
-      submit_program_job "$DQWITHBSD_DIR" "$DQWITHBSD_CMD" "$DQWITHBSD_JOB_NAME" "$DQWITHBSD_LSF_OUT"
+      submit_program_job_a "$DQWITHBSD_DIR" "$DQWITHBSD_CMD" "$DQWITHBSD_JOB_NAME" "$DQWITHBSD_LSF_OUT"
     fi
 
     # 6) update_latest_dat.sh
     if job_exists "$LATEST_JOB_NAME"; then
       echo "[$(ts)] LATEST: job '$LATEST_JOB_NAME' already running/queued"
     else
-      submit_program_job "$LATEST_DIR" "$LATEST_CMD" "$LATEST_JOB_NAME" "$LATEST_LSF_OUT"
+      submit_program_job_a "$LATEST_DIR" "$LATEST_CMD" "$LATEST_JOB_NAME" "$LATEST_LSF_OUT"
     fi
 
     echo "[$(ts)] Scan loop end; sleep $INTERVAL"
